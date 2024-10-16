@@ -7,9 +7,10 @@ use crate::notify::Toast;
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(app: tauri::AppHandle, title: &str, content: &str) -> String {
-    // Message::notify(title, content, None);
-    let toast = Toast;
-    toast.notify(NotifyParams::CustomView { app });
+    let message = Message;
+    message.notify(NotifyParams::NotifyRust { title, content, subtitle:None });
+    // let toast = Toast;
+    // toast.notify(NotifyParams::CustomView { app });
     "Hello, ! You've been greeted from Rust!".to_string()
 }
 

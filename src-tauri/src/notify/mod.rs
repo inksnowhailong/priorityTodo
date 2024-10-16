@@ -2,7 +2,9 @@ pub mod notify_trait;
 
 use notify_rust::{Notification, Timeout};
 use notify_trait::{Notify, NotifyParams};
-use tauri::Manager;
+
+
+
 pub struct Message;
 pub struct Toast;
 
@@ -56,7 +58,6 @@ impl Notify for Toast {
                 subtitle,
             } => {}
             NotifyParams::CustomView { app } => {
-                let app_clone = app.clone(); // 确保 app 可以被使用
                 let app_clone = app.clone();
 
                 tokio::spawn(async move {
@@ -73,10 +74,10 @@ impl Toast {
 
     async fn openNewWindow(app: tauri::AppHandle) {
 
-        // 计算窗口的位置（右下角）
-        let x = 0  as f64;
-        let y = 0 as f64;
 
+        // 计算窗口的位置（右下角）
+        let x = 100 as f64;
+        let y = 100 as f64;
         let webview_window = tauri::WebviewWindowBuilder::new(
             &app,
             "label",
@@ -90,5 +91,4 @@ impl Toast {
     // fn get_screen_size() -> (u32, u32) {
     //     // winit::dpi::PhysicalSize::new(1920, 1080)
     // }
-
 }
