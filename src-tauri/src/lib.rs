@@ -1,10 +1,15 @@
 pub mod notify;
-use crate::notify::Message;
+use notify::notify_trait::NotifyParams;
+
 use crate::notify::notify_trait::Notify;
+use crate::notify::Message;
+use crate::notify::Toast;
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
-fn greet(title: &str,content: &str) -> String {
-    Message::notify(title, content, None);
+fn greet(app: tauri::AppHandle, title: &str, content: &str) -> String {
+    // Message::notify(title, content, None);
+    let toast = Toast;
+    toast.notify(NotifyParams::CustomView { app });
     "Hello, ! You've been greeted from Rust!".to_string()
 }
 

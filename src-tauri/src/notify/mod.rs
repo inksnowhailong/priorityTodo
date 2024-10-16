@@ -1,13 +1,34 @@
 pub mod notify_trait;
 
 use notify_rust::{Notification, Timeout};
-use notify_trait::Notify;
-
+use notify_trait::{Notify, NotifyParams};
+use tauri::Manager;
 pub struct Message;
 pub struct Toast;
 
 impl Notify for Message {
-    fn notify(title: &str, content: &str, subtitle: Option<&str>) {
+    fn notify(&self, params: NotifyParams) {
+        match params {
+            NotifyParams::NotifyRust {
+                title,
+                content,
+                subtitle,
+            } => {
+                self.notify_rust(title, content, subtitle);
+            }
+            NotifyParams::CustomView { app } => {
+                // app.invoke(&"customView".to_string(), |window| {
+                //     window.emit("customView", "Hello from Rust!");
+                // });
+            }
+        }
+    }
+}
+impl Message {
+    fn new() -> Self {
+        Message
+    }
+    fn notify_rust(&self, title: &str, content: &str, subtitle: Option<&str>) {
         // 创建一个可变的 notification 对象
         let mut notification = Notification::new();
 
@@ -27,19 +48,47 @@ impl Notify for Message {
 }
 
 impl Notify for Toast {
-    fn notify(title: &str, content: &str, subtitle: Option<&str>) {
-        let window_label = "message_window";
-        let url = format!("index.html#/message?title={}&content={}&subtitle={}", title, content, subtitle.unwrap_or(""));
+    fn notify(&self, params: NotifyParams) {
+        match params {
+            NotifyParams::NotifyRust {
+                title,
+                content,
+                subtitle,
+            } => {}
+            NotifyParams::CustomView { app } => {
+                let app_clone = app.clone(); // 确保 app 可以被使用
+                let app_clone = app.clone();
 
-        tauri::WebviewWindowBuilder::new(
-            &app_handle,
-            window_label, // 窗口的唯一标识符
-            tauri::WindowUrl::App(url.into()) // 前端应用的路由和参数
+                tokio::spawn(async move {
+                    Toast::openNewWindow(app_clone).await; // 在后台运行异步方法
+                });
+            }
+        }
+    }
+}
+impl Toast {
+    fn new() -> Self {
+        Toast
+    }
+
+    async fn openNewWindow(app: tauri::AppHandle) {
+
+        // 计算窗口的位置（右下角）
+        let x = 0  as f64;
+        let y = 0 as f64;
+
+        let webview_window = tauri::WebviewWindowBuilder::new(
+            &app,
+            "label",
+            tauri::WebviewUrl::App("index.html".into()),
         )
-        .title("Message Window") // 窗口标题
-        .inner_size(300.0, 200.0) // 窗口大小
-        .resizable(false) // 禁止调整窗口大小
+        .always_on_top(true)
+        .position(x, y)
         .build()
         .unwrap();
     }
+    // fn get_screen_size() -> (u32, u32) {
+    //     // winit::dpi::PhysicalSize::new(1920, 1080)
+    // }
+
 }
