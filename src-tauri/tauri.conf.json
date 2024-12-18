@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.tauri.app/config/2.0.0",
+  "$schema": "https://schema.tauri.app/config/2",
   "productName": "prioritytodo",
   "version": "0.1.0",
   "identifier": "com.prioritytodo.app",
@@ -12,12 +12,10 @@
   "app": {
     "windows": [
       {
-        "label": "main",
-        "url": "/",
         "title": "prioritytodo",
         "width": 800,
-        "height": 600
-
+        "height": 600,
+        "decorations": true
       }
     ],
     "security": {

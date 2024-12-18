@@ -5,26 +5,25 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri dev"
   },
   "dependencies": {
-    "@tauri-apps/api": ">=2.0.0",
-    "@tauri-apps/plugin-shell": ">=2.0.0",
-    "element-plus": "^2.8.5",
-    "vue": "^3.5.12"
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-opener": "^2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@tauri-apps/cli": ">=2.0.0",
-    "@types/node": "^22.7.5",
-    "@vitejs/plugin-vue": "^5.1.4",
-    "sass-embedded": "^1.79.5",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.3",
-    "unplugin-auto-import": "^0.18.3",
-    "unplugin-vue-components": "^0.27.4",
-    "vite": "^5.4.8",
-    "vue-tsc": "^2.1.6"
+    "@tauri-apps/cli": "^2",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3"
   }
 }
