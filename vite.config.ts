@@ -1,12 +1,17 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import postcssConfig from "./postcss.config";
-// @ts-expect-error process is a nodejs global
+import AutoImport from 'unplugin-auto-import/vite' //按需自动加载依赖包
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [react()],
+  plugins: [react(),AutoImport({
+   imports:[
+    'react',
+    'react-router-dom',
+   ]
+  })],
   css: {
     postcss: postcssConfig,
     // preprocessorOptions: {
