@@ -2,7 +2,7 @@
 name = "prioritytodo"
 version = "0.1.0"
 description = "A Tauri App"
-authors = ["you"]
+authors = ["inksnow"]
 edition = "2021"
 
 
