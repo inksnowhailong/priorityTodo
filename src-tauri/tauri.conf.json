@@ -12,10 +12,20 @@
   "app": {
     "windows": [
       {
+        "label": "main",
         "title": "prioritytodo",
         "width": 800,
         "height": 600,
         "decorations": true
+      },{
+        "label": "dialog",
+        "url":"/dialog",
+        "width": 0,
+        "height": 0,
+        "decorations":true,
+        "alwaysOnTop": true,
+        "resizable": false,
+        "visible": false
       }
     ],
     "security": {
