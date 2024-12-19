@@ -7,6 +7,7 @@ import { App as AppAntd} from 'antd';
 
 function App() {
   const { message, notification, modal } = AppAntd.useApp();
+  // 全局加入这些弹窗
   window.$message = message;
   window.$notification = notification;
   window.$modal = modal;
