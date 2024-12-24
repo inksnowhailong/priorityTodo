@@ -1,4 +1,4 @@
-// tasks/task_manage.rs
+// src/tasks/task_manage.rs
 
 use crate::entities::task::Task;  // 引入 Task 结构体
 use crate::tasks::itask_manage::ITaskManage;  // 引入 ITaskManage trait
@@ -30,8 +30,10 @@ impl ITaskManage for TaskManager {
     }
 
     fn get_task(&self, task_id: i32) -> Result<Task, String> {
-        self.tasks.iter().find(|&&task| task.id == task_id).cloned()
-            .ok_or_else(|| format!("Task with ID {} not found", task_id))
+        self.tasks.iter()
+        .find(|task| task.id == task_id)  // 这里已经是 &Task，避免解引用
+        .cloned()  // 克隆出 Task
+        .ok_or_else(|| format!("Task with ID {} not found", task_id))
     }
 
     fn get_all_tasks(&self) -> Result<Vec<Task>, String> {

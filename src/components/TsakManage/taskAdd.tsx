@@ -26,7 +26,12 @@ const taskAdd: FC<AddProps> = ({ show, onClose }) => {
       progress: 0,
     };
     try {
-      const res = await invoke("add_task", newData);
+      const res = await invoke('invok_command',{
+        command: 'add_task',
+        jsonData: JSON.stringify(newData),
+      });
+      console.log(res);
+
     } catch (error) {}
   };
   const handleCancel = () => {
