@@ -3,15 +3,13 @@
 use crate::entities::task::Task; // 引入 Task 结构体
 use crate::tasks::itask_manage::{IPersistence, ITaskManage}; // 引入 ITaskManage trait
 
-pub struct TaskManager{
+pub struct TaskManager {
     pub persistence: Box<dyn IPersistence>,
 }
 
 impl TaskManager {
-    pub fn new(persistence:  Box<dyn IPersistence>) -> Self {
-        TaskManager {
-            persistence,
-        }
+    pub fn new(persistence: Box<dyn IPersistence>) -> Self {
+        TaskManager { persistence }
     }
 }
 
