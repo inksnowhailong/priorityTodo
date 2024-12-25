@@ -1,15 +1,17 @@
 // src/tasks/task_manage.rs
 
 use crate::entities::task::Task; // 引入 Task 结构体
-use crate::tasks::itask_manage::ITaskManage; // 引入 ITaskManage trait
+use crate::tasks::itask_manage::{IPersistence, ITaskManage}; // 引入 ITaskManage trait
 
-pub struct TaskManager {
-    tasks: Vec<Task>,
+pub struct TaskManager{
+    pub persistence: Box<dyn IPersistence>,
 }
 
 impl TaskManager {
-    pub fn new() -> Self {
-        TaskManager { tasks: Vec::new() }
+    pub fn new(persistence:  Box<dyn IPersistence>) -> Self {
+        TaskManager {
+            persistence,
+        }
     }
 }
 
@@ -19,6 +21,7 @@ impl ITaskManage for TaskManager {
         let mut task = task;
         let task_id = Task::get_id();
         task.id = Some(task_id);
+        self.persistence.save_task(&task)?;
         Ok(task)
     }
 
@@ -30,11 +33,11 @@ impl ITaskManage for TaskManager {
         return Err("开发中 todo!()".to_string());
     }
 
-    fn delete_task(&mut self, task_id: i32) -> Result<Task, String> {
+    fn delete_task(&mut self, task_id: String) -> Result<Task, String> {
         return Err("开发中 todo!()".to_string());
     }
 
-    fn complete_task(&mut self, task_id: i32) -> Result<Task, String> {
+    fn complete_task(&mut self, task_id: String) -> Result<Task, String> {
         return Err("开发中 todo!()".to_string());
     }
 }
