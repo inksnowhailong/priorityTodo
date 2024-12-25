@@ -10,7 +10,6 @@ interface AddProps {
   show: boolean;
   onClose?: () => void;
 }
-
 const taskAdd: FC<AddProps> = ({ show, onClose }) => {
   if (!show) return null;
   const handleOk = async () => {

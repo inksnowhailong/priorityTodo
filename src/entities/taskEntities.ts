@@ -1,7 +1,7 @@
 
   // 待办事项类型
-  export interface Task {
-    id: number;                  // 待办ID
+  export interface Task<T = true> {
+    id:T extends true ?string:never;                  // 待办ID
     task_name: string;        // 待办名称
     description: string;      // 待办描述
     category: TaskCategory;   // 待办分类

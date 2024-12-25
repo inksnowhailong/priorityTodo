@@ -1,10 +1,11 @@
 // src/entities/task.rs
 use serde::{Serialize, Deserialize};
-
+use uuid::Uuid;
 /// 待办事项结构体
 #[derive(Debug, Clone,Serialize, Deserialize, )]
 pub struct Task {
-    pub id: i32,                  // 待办ID
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,          // 待办ID
     pub task_name: String,        // 待办名称
     pub description: String,      // 待办描述
     pub category: TaskCategory,   // 待办分类
@@ -36,7 +37,7 @@ pub enum TaskStatus {
 impl Task {
     /// 创建一个新的 Task 实例
     pub fn new(
-        id: i32,
+        id: Option<String>,
         task_name: String,
         description: String,
         category: TaskCategory,
@@ -57,5 +58,9 @@ impl Task {
             task_status,
             progress,
         }
+    }
+
+    pub fn get_id() -> String  {
+     return Uuid::new_v4().to_string();
     }
 }
