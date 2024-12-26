@@ -1,7 +1,5 @@
-/*
 
-*/
-
+import { Task, TaskCategory, TaskImportance, TaskStatus } from "@/entities/taskEntities";
 import { invoke } from "@tauri-apps/api/core";
 import { Modal } from "antd";
 import { FC } from "react";
@@ -13,15 +11,14 @@ interface AddProps {
 const taskAdd: FC<AddProps> = ({ show, onClose }) => {
   if (!show) return null;
   const handleOk = async () => {
-    const newData = {
-      id: 1,
+    const newData:Task = {
       task_name: "学习 Rust",
       description: "学习 Rust 编程语言的基本知识",
-      category: "Learning",
-      importance: "高",
+      category:TaskCategory.Learning,
+      importance: TaskImportance.High,
       time_remaining: 120,
       estimated_time: 180,
-      task_status: "NotStarted",
+      task_status: TaskStatus.NotStarted,
       progress: 0,
     };
     try {

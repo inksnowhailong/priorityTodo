@@ -9,7 +9,7 @@ pub struct Task {
     pub task_name: String,        // 待办名称
     pub description: String,      // 待办描述
     pub category: TaskCategory,   // 待办分类
-    pub importance: String,       // 待办重要性
+    pub importance: u8,  // 待办重要性 0-3  0: 低 1: 中 2: 高 3: 紧急
     pub time_remaining: i32,      // 剩余时间
     pub estimated_time: i32,      // 预计时间
     pub task_status: TaskStatus,  // 待办状态
@@ -33,7 +33,6 @@ pub enum TaskStatus {
     InProgress,  // 进行中
     Completed,   // 已完成
 }
-
 impl Task {
     /// 创建一个新的 Task 实例
     pub fn new(
@@ -41,7 +40,7 @@ impl Task {
         task_name: String,
         description: String,
         category: TaskCategory,
-        importance: String,
+        importance: u8,
         time_remaining: i32,
         estimated_time: i32,
         task_status: TaskStatus,

@@ -17,15 +17,15 @@ pub trait IPersistence {
     // 持久化一个任务
     fn save_task(&mut self, task: &Task) -> Result<(), String>;
 
-    // 更新任务
-    fn update_task(&mut self, task: &Task) -> Result<(), String>;
+    // // 更新任务
+    // fn update_task(&mut self, task: &Task) -> Result<(), String>;
 
-    // 通过ID查找任务
-    fn get_task_by_id(&self, task_id: String) -> Result<Option<Task>, String>;
+    // // 通过ID查找任务
+    // fn get_task_by_id(&self, task_id: String) -> Result<Option<Task>, String>;
 
-    // 根据时间范围获取任务
-    fn get_tasks_by_time(&self) -> Result<Vec<Task>, String>;
+    // // 根据时间范围获取任务
+    // fn get_tasks_by_time(&self) -> Result<Vec<Task>, String>;
 
-    // 删除任务
-    fn delete_task(&mut self, task_id: String) -> Result<(), String>;
+    // // 删除任务
+    // fn delete_task(&mut self, task_id: String) -> Result<(), String>;
 }

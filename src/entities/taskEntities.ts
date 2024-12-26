@@ -1,11 +1,11 @@
 
   // 待办事项类型
-  export interface Task<T = true> {
-    id:T extends true ?string:never;                  // 待办ID
+  export interface Task {
+    id?:string;                  // 待办ID
     task_name: string;        // 待办名称
     description: string;      // 待办描述
     category: TaskCategory;   // 待办分类
-    importance: string;       // 待办重要性
+    importance: TaskImportance;       // 待办重要性
     time_remaining: number;      // 剩余时间
     estimated_time: number;      // 预计时间
     task_status: TaskStatus;  // 待办状态
@@ -27,4 +27,12 @@ export enum TaskStatus {
   NotStarted = "NotStarted",  // 未开始
   InProgress = "InProgress",  // 进行中
   Completed = "Completed",   // 已完成
+}
+
+// 重要性
+export enum TaskImportance {
+  Low = 0,        // 低
+  Medium = 1,     // 中
+  High = 2,       // 高
+  Urgent = 3,     // 紧急
 }
