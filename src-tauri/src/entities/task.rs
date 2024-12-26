@@ -10,10 +10,10 @@ pub struct Task {
     pub description: String,      // 待办描述
     pub category: TaskCategory,   // 待办分类
     pub importance: u8,  // 待办重要性 0-3  0: 低 1: 中 2: 高 3: 紧急
-    pub time_remaining: i32,      // 剩余时间
-    pub estimated_time: i32,      // 预计时间
+    pub time_remaining: u64,      // 剩余时间
+    pub estimated_time: u64,      // 预计时间
     pub task_status: TaskStatus,  // 待办状态
-    pub progress: i32,            // 待办进度
+    pub progress: u8,            // 待办进度
 }
 
 /// 待办事项分类枚举
@@ -41,10 +41,10 @@ impl Task {
         description: String,
         category: TaskCategory,
         importance: u8,
-        time_remaining: i32,
-        estimated_time: i32,
+        time_remaining: u64,
+        estimated_time: u64,
         task_status: TaskStatus,
-        progress: i32,
+        progress: u8,
     ) -> Self {
         Task {
             id,

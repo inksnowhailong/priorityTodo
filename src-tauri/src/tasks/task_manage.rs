@@ -27,7 +27,7 @@ impl ITaskManage for TaskManager {
         return Err("开发中 todo!()".to_string());
     }
 
-    fn query_task_by_time(&self, start_time: i64, end_time: i64) -> Result<Vec<Task>, String> {
+    fn query_task_by_time(&self, start_time: u64, end_time: u64) -> Result<Vec<Task>, String> {
         return Err("开发中 todo!()".to_string());
     }
 

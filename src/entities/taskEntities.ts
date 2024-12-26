@@ -1,38 +1,65 @@
+/**
+ * 待办事项类型
+ */
+export interface Task {
+  /**待办ID */
+  id?: string;
+  /**待办名称 */
+  task_name: string;
+  /**待办描述 */
+  description: string;
+  /**待办分类 */
+  category: TaskCategory;
+  /**待办重要性 */
+  importance: TaskImportance;
+  /**剩余时间 */
+  time_remaining: number;
+  /**预计时间 */
+  estimated_time: number;
+  /**待办状态 */
+  task_status: TaskStatus;
+  /**待办进度 */
+  progress: number;
+}
 
-  // 待办事项类型
-  export interface Task {
-    id?:string;                  // 待办ID
-    task_name: string;        // 待办名称
-    description: string;      // 待办描述
-    category: TaskCategory;   // 待办分类
-    importance: TaskImportance;       // 待办重要性
-    time_remaining: number;      // 剩余时间
-    estimated_time: number;      // 预计时间
-    task_status: TaskStatus;  // 待办状态
-    progress: number;            // 待办进度
-  }
-
-
-  // 待办事项分类枚举
+/**
+ * 待办事项分类枚举
+ */
 export enum TaskCategory {
-  Work = "Work",        // 工作
-  Learning = "Learning",    // 学习
-  Reading = "Reading",     // 阅读
-  Live = "Live",        // 生活
-  Other = "Other",       // 其他
+  /**工作 */
+  Work = "Work",
+  /**学习 */
+  Learning = "Learning",
+  /**阅读 */
+  Reading = "Reading",
+  /**生活 */
+  Live = "Live",
+  /**其他 */
+  Other = "Other",
 }
 
-// 待办事项状态枚举
+/**
+ * 待办事项状态枚举
+ */
 export enum TaskStatus {
-  NotStarted = "NotStarted",  // 未开始
-  InProgress = "InProgress",  // 进行中
-  Completed = "Completed",   // 已完成
+  /**未开始 */
+  NotStarted = "NotStarted",
+  /**进行中 */
+  InProgress = "InProgress",
+  /**已完成 */
+  Completed = "Completed",
 }
 
-// 重要性
+/**
+ * 重要性
+ */
 export enum TaskImportance {
-  Low = 0,        // 低
-  Medium = 1,     // 中
-  High = 2,       // 高
-  Urgent = 3,     // 紧急
+  /**低 */
+  Low = 0,
+  /**中 */
+  Medium = 1,
+  /**高 */
+  High = 2,
+  /**紧急 */
+  Urgent = 3,
 }

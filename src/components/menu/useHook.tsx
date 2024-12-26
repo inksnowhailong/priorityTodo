@@ -2,11 +2,15 @@ import { FloatButton } from "antd";
 import TaskAdd from "../TsakManage/taskAdd";
 import { PlusCircleOutlined } from "@ant-design/icons";
 
+
 /**
- * add 相关逻辑封装
- * @returns
+ * @description: 使用taskAdd的hook
+ * @param {number} overTime 默认完成时间 默认值是当天的23:59:59
+ * @return {*}
  */
-export const useAddModule = () => {
+export const useAddModule = (
+  overTime = new Date(new Date().setHours(23, 59, 59, 999)).getTime()
+) => {
   // 是否显示
   const [show, setShow] = useState(false);
 
@@ -28,7 +32,7 @@ export const useAddModule = () => {
    * @returns
    */
   const AddMod: React.FC = () => {
-    return <TaskAdd show={show} onClose={close}></TaskAdd>;
+    return <TaskAdd show={show} onClose={close} overTime={overTime}></TaskAdd>;
   };
   /**
    * add按钮组件
@@ -40,4 +44,3 @@ export const useAddModule = () => {
 
   return { show, open, close, AddMod, AddBtn };
 };
-
