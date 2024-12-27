@@ -1,0 +1,137 @@
+@startuml global
+' 提醒用例
+package "Reminder Use Cases" {
+    class Reminder {
+        + taskId
+        + nextTime
+        + triggerReminder()
+    }
+
+    class FaceRecognitionService {
+        + startRecognition(): void
+        + validatePresence(): Boolean
+    }
+}
+
+package "heart "{
+    class Heartbeat {
+        - beat()
+        -todoList: List<todoBlood>
+        +addTodoBlood(todoBlood):todoBlood
+        +removeTodoBlood(todoId)
+    }
+
+    interface todoBlood {
+        +todoId: String
+        +todoInfo: Object
+        +run(todoInfo): void
+    }
+
+    Heartbeat --> todoBlood : "心中保存着血液（任务）"
+    note top of Heartbeat : "每次心跳会执行todoList每一项的run"
+}
+
+' 任务用例
+package "Tasks Use Cases" {
+    abstract class  IPersistence{
+        + save_task()
+        + update_task()
+        + get_task_by_id()
+        + get_tasks_by_time()
+        + delete_task()
+    }
+    interface ITaskManager {
+        + createTask()
+        + modifyTask()
+        + queryTask()
+        + deleteTask()
+        + completeTask()
+    }
+    class TaskManage implements ITaskManager {
+        + createTask()
+        + modifyTask()
+        + queryTask()
+        + deleteTask()
+        + completeTask()
+    }
+
+
+}
+' 任务实体部分
+package "TaskEntities" {
+    enum TaskStatus {
+        NotStarted
+        InProgress
+        Completed
+    }
+    enum TaskCategory {
+        Work
+        Learning
+        Reading
+        Live
+        Other
+    }
+    class Task {
+        + taskName: String
+        + description: String
+        + category: TaskCategory
+        + importance: String
+        + timeRemaining: number
+        + estimatedTime: number
+        + taskStatus: String
+        + progress: String
+    }
+}
+
+' 数据持久化部分
+package "Memory 记忆体" {
+
+    class DatabaseManager {
+        + connect(): void
+        + disconnect(): void
+    }
+
+    class TaskRepositoryImpl   {
+        + save_task()
+        + update_task()
+        + get_task_by_id()
+        + get_tasks_by_time()
+        + delete_task()
+    }
+}
+
+' 系统UI部分
+package "Frameworks & Drivers" {
+    package "SystemUI" {
+        abstract class ManageView {
+            + displayView(): void
+        }
+
+        class DialogReminder {
+            + showReminder(): void
+            + hideReminder(): void
+        }
+
+        class SoundReminder {
+            + playReminderSound(): void
+            + stopReminderSound(): void
+        }
+    }
+}
+
+' 关系定义
+ITaskManager --> Task : "任务增删改查"
+TaskManage -->IPersistence : "依赖持久化接口"
+
+DialogReminder --> Reminder : "实现弹窗UI"
+SoundReminder --> Reminder : "实现音效UI(待定)"
+
+Task --> TaskCategory : "待办分类"
+Task --> TaskStatus : "待办状态"
+
+SystemUI --> ITaskManager : "管理任务对应UI"
+SystemUI --> Task : "UI也要依据待办任务本身字段"
+TaskRepositoryImpl --> DatabaseManager : "待办数据查询"
+TaskRepositoryImpl --|> IPersistence : "继承持久化接口抽象"
+TaskRepositoryImpl --> Task : "继承持久化接口抽象"
+@enduml
