@@ -18,8 +18,8 @@ where
 fn invok_command(command: &str, json_data: String) -> String {
     println!("Command: {}, JSON data: {}", command, json_data);
     match command {
-        "add_task" => match simulate_receive_task_json::<Task>(json_data) {
-            Ok(task) => command::add_task(task),
+        "crate_task" => match simulate_receive_task_json::<Task>(json_data) {
+            Ok(task) => command::crate_task(task),
             Err(e) => format!("data Error: {}", e),
         },
         _ => "Unknown command".to_string(),
