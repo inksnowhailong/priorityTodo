@@ -60,6 +60,9 @@ impl Task {
         estimated_time: u64,
         task_status: TaskStatus,
         progress: u8,
+        is_repeat: bool,
+        repeat_interval: Option<RepeatInterval>,
+        repeat_end_time: Option<u64>,
     ) -> Self {
         Task {
             id,
@@ -71,6 +74,9 @@ impl Task {
             estimated_time,
             task_status,
             progress,
+            is_repeat,
+            repeat_interval,
+            repeat_end_time,
         }
     }
 
