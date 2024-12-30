@@ -1,7 +1,6 @@
 import { Task } from "@/entities/taskEntities";
 
 
-
 /**
  * 任务管理接口
  */
@@ -45,3 +44,4 @@ export abstract class TaskManager {
       */
      abstract completeTask(taskId: string): Promise<Task>;
 }
+

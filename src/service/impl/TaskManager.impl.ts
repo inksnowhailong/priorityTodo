@@ -1,13 +1,18 @@
 import { Task } from "@/entities/taskEntities";
 import { TaskManager } from "../TaskManage";
-import { InvokeCommandStrategy } from "@/utils/tauri/invokeFactory";
-class createCommand extends InvokeCommandStrategy<Task,Task> {
-    commandKey= "crate_task";
+import { InvokeCommandStrategy, invokeContext } from "@/utils/tauri/invokeFactory";
+import { invok_command_enum } from "@/utils/tauri/invokeEnum";
 
-}
  export class TaskManagerImpl extends TaskManager {
-     createTask(task: Task): Promise<Task> {
-         throw new Error("Method not implemented.");
+    strategyContext: invokeContext;
+    constructor(){
+        super();
+        this.strategyContext = new invokeContext();
+    }
+     async createTask(task: Task): Promise<Task> {
+         this.strategyContext.setStrategy(new InvokeCommandStrategy(invok_command_enum.COMPLETE_TASK));
+         const res = await this.strategyContext.execute<Task,Task>(task);
+         return res
      }
      modifyTask(task: Task): Promise<Task> {
          throw new Error("Method not implemented.");
