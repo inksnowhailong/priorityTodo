@@ -20,6 +20,9 @@ export interface Task {
   task_status: TaskStatus;
   /**待办进度 */
   progress: number;
+  is_repeat:boolean;
+repeat_interval:RepeatInterval
+repeat_end_time:number
 }
 
 /**
@@ -62,4 +65,17 @@ export enum TaskImportance {
   High = 2,
   /**紧急 */
   Urgent = 3,
+}
+
+enum RepeatInterval {
+  Daily,   // 每日重复
+  Weekly1=1,  // 每周n（1-7）重复
+  Weekly2=2,  // 每周n（1-7）重复
+  Weekly3=3,  // 每周n（1-7）重复
+  Weekly4=4,  // 每周n（1-7）重复
+  Weekly5=5,  // 每周n（1-7）重复
+  Weekly6=6,  // 每周n（1-7）重复
+  Weekly7=7,  // 每周n（1-7）重复
+  Monthly, // 每月重复
+  Yearly,  // 每年重复
 }
