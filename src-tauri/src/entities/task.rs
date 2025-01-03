@@ -26,7 +26,7 @@ pub struct Task {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum RepeatInterval {
     Daily,   // 每日重复
-    Weekly(u8),  // 每周n（1-7）重复
+    Weekly,  // 每周n（1-7）重复
     Monthly, // 每月重复
     Yearly,  // 每年重复
 }
