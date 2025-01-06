@@ -19,7 +19,7 @@ pub struct Task {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub repeat_interval: Option<RepeatInterval>, // 任务重复间隔，选择性字段
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub repeat_end_time: Option<u64>, // 任务重复的结束时间戳
+    pub repeat_day: Option<u16>, // 任务重复日，repeat_interval不为Daily时有效，大于0
 }
 
 // 枚举：表示任务重复的间隔类型
@@ -62,7 +62,7 @@ impl Task {
         progress: u8,
         is_repeat: bool,
         repeat_interval: Option<RepeatInterval>,
-        repeat_end_time: Option<u64>,
+        repeat_day: Option<u16>,
     ) -> Self {
         Task {
             id,
@@ -76,7 +76,7 @@ impl Task {
             progress,
             is_repeat,
             repeat_interval,
-            repeat_end_time,
+            repeat_day,
         }
     }
 

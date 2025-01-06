@@ -1,4 +1,4 @@
-import { TaskCategory, TaskImportance, TaskStatus } from "@/entities/taskEntities";
+import { RepeatInterval, TaskCategory, TaskImportance, TaskStatus } from "@/entities/taskEntities";
 
 /**
  * 待办事项分类枚举映射文本
@@ -28,3 +28,16 @@ export const TaskStatusMap: Record<TaskStatus, string> = {
     InProgress: "进行中",
     Completed: "已完成",
 };
+
+export const RepeatIntervalMap: Record<RepeatInterval, string> = {
+    Daily: "每日",
+    Weekly: "每周",
+    Monthly: "每月",
+    Yearly: "每年",
+}
+export const RepeatIntervalMaxMap: Record<RepeatInterval, number> = {
+    Daily: 1,
+    Weekly: 7,
+    Monthly: 31,
+    Yearly: 366,
+}

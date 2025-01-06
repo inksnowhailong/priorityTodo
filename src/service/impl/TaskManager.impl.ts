@@ -10,7 +10,7 @@ import { invok_command_enum } from "@/utils/tauri/invokeEnum";
         this.strategyContext = new invokeContext();
     }
      async createTask(task: Task): Promise<Task> {
-         this.strategyContext.setStrategy(new InvokeCommandStrategy(invok_command_enum.COMPLETE_TASK));
+         this.strategyContext.setStrategy(new InvokeCommandStrategy(invok_command_enum.CREATE_TASK));
          const res = await this.strategyContext.execute<Task,Task>(task);
          return res
      }

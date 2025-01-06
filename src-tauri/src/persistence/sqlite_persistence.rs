@@ -15,6 +15,7 @@ impl SqlitePersistence {
         s.create_tables();
         s
     }
+
     fn create_tables(&self) {
         self.db
             .execute(
@@ -27,7 +28,10 @@ impl SqlitePersistence {
             time_remaining INTEGER ,
             estimated_time INTEGER ,
             task_status TEXT NOT NULL,
-            progress INTEGER NOT NULL
+            progress INTEGER NOT NULL,
+            is_repeat INTEGER NOT NULL,
+            repeat_interval TEXT,
+            repeat_day INTEGER
         )",
             )
             .unwrap();
@@ -36,8 +40,8 @@ impl SqlitePersistence {
 impl IPersistence for SqlitePersistence {
     fn save_task(&mut self, task: &Task) -> std::result::Result<(), String> {
         let sql = format!(
-            "INSERT INTO tasks (id, task_name, description, category, importance, time_remaining, estimated_time, task_status, progress)
-            VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')",
+            "INSERT INTO tasks (id, task_name, description, category, importance, time_remaining, estimated_time, task_status, progress,is_repeat,repeat_interval,repeat_day)
+            VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}','{}','{}','{}')",
             task.id.clone().unwrap(),
             task.task_name.clone(),
             task.description.clone(),
@@ -46,13 +50,16 @@ impl IPersistence for SqlitePersistence {
             task.time_remaining,
             task.estimated_time,
             to_string(&task.task_status).unwrap(),
-            task.progress
+            task.progress,
+            task.is_repeat as u8,
+            to_string(&task.repeat_interval).unwrap(),
+            task.repeat_day.unwrap_or(1),
         );
         self.db.execute(&sql).map_err(|e| {
-            println!("sql Error: {}",   e.to_string());
+            println!("sql Error: {}", e.to_string());
             e.to_string()
         })?;
-        println!("sql: 储存成功 {:?}",&task.id);
+        println!("sql: 储存成功 {:?}", &task.id);
         Ok(())
         // // 执行 SQL 插入，并处理可能的错误
         // match self.db.execute(&sql) {
