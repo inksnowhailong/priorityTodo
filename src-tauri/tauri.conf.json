@@ -16,7 +16,8 @@
         "title": "prioritytodo",
         "width": 800,
         "height": 600,
-        "decorations": true
+        "decorations": true,
+        "visible": false
       },{
         "label": "dialog",
         "url":"/dialog",
