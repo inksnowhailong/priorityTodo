@@ -5,6 +5,7 @@ use tauri::tray::TrayIconBuilder;
 use tauri::Manager;
 use tauri::{
     menu::{Menu, MenuItem},
+    tray::TrayIconEvent
 }; // 引入 Task 和相关类型]
 mod command;
 mod entities;
@@ -35,14 +36,15 @@ fn invok_command(command: &str, json_data: String) -> String {
 pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
-            let hide_i = MenuItem::with_id(app, "hide", "隐藏", true, None::<&str>)?;
+            let hide_i = MenuItem::with_id(app, "hide", "隐藏主页面", true, None::<&str>)?;
             let show_i = MenuItem::with_id(app, "show", "展示", true, None::<&str>)?;
-            let menu = Menu::with_items(app, &[&hide_i,&show_i])?;
+            let quit_i = MenuItem::with_id(app, "quit", "退出", true, None::<&str>)?;
+            let menu = Menu::with_items(app, &[&hide_i,&quit_i])?;
 
-            let tray = TrayIconBuilder::new()
-                .menu(&menu)
-                .menu_on_left_click(false)
-                .on_menu_event(|app, event| match event.id.as_ref() {
+            let _ = TrayIconBuilder::new()
+                .menu(&menu) //注册 菜单项
+                .menu_on_left_click(false) //点击托盘图标时不显示菜单
+                .on_menu_event(|app, event| match event.id.as_ref() {  //点击托盘图标时触发的事件
                     "hide" => {
                         let window = app.get_window("main").unwrap();
                         println!("Hiding window...");
@@ -57,6 +59,15 @@ pub fn run() {
                       println!("menu item {:?} not handled", event.id);
                     }
                   })
+                .on_tray_icon_event(|tray, event| match event {
+                    TrayIconEvent::Click { ..} => {
+                        let app = tray.app_handle();
+                        let window = app.get_window("main").unwrap();
+                        println!("Showing window...");
+                        window.show().unwrap();
+                    }
+                    _ => {}
+                })
                 .icon(app.default_window_icon().unwrap().clone())
                 .build(app);
             Ok(())
